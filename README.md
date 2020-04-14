@@ -1,6 +1,7 @@
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 ##Laravel6
+
 ######对Laravel6进行了小修改（也不算是修改,就算是把常用的东西整合上去）
 
 ####1.返回接口统一
