@@ -11,7 +11,7 @@ class User extends \Illuminate\Foundation\Auth\User implements JWTSubject,Authen
 {
     use Notifiable;
 
-    protected $table = 'users';
+    public $table = 'user';
 
     protected $rememberTokenName = NULL;
 

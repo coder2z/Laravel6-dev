@@ -32,7 +32,7 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param  \Exception $exception
      * @return void
      *
      * @throws \Exception
@@ -45,8 +45,8 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $exception
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Exception
@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
             } else {
                 $StatusCode = 500;
                 $errors = $exception->getMessage();
-                \App\Utils\Logs::logError($error_msg, [$errors]);
+                logError($error_msg, [$errors]);
             }
         } else if ($exception instanceof AuthenticationException) {
             $StatusCode = 403;
@@ -70,14 +70,14 @@ class Handler extends ExceptionHandler
         } else {
             $errors = $exception->getMessage();
             $StatusCode = 500;
-            \App\Utils\Logs::logError($error_msg, [$errors]);
+            logError($error_msg, [$errors]);
         }
         if (Request::ajax()) {
-            return response()->fail($StatusCode, $error_msg, env('APP_DEBUG') ? $errors : null, $StatusCode);
-        }else{
+            return json_fail($error_msg, env('APP_DEBUG') ? $errors : null, $StatusCode, $StatusCode);
+        } else {
             return env('APP_DEBUG') ?
-                parent::render($request, $exception):
-                response()->view('errors.' . $StatusCode, ['errors' => $errors],$StatusCode);
+                parent::render($request, $exception) :
+                response()->view('errors.' . $StatusCode, ['errors' => $errors], $StatusCode);
         }
     }
 }

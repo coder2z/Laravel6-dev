@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    logInfo('网站部署成功');
+    return json_success('网站部署成功');
 });

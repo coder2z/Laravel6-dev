@@ -6,17 +6,18 @@
 
 #### 1、返回接口统一
     文件位置：
-        App\Providers\ResponseServiceProvider;
+        App\Helpers\json.php;
     使用：
-        response()->success(200, $msg, $data, $status) :
-        response()->fail(100, $msg, $data, $status);
+        json_success($msg, $data);
+        json_fail($msg, $data);
 #### 2、Monolog\Logger整合
     文件位置：
-        App\Utils\Logs
+        App\Helpers\logger.php;
     使用：
-        \App\Utils\Logs::logInfo($title, [$msg]);
-        \App\Utils\Logs::logWarning($title, [$msg]);
-        \App\Utils\Logs::logError($title, [$msg]);
+        logInfo($title, [$msg]);
+        logWarning($title, [$msg]);
+        logError($title, [$msg]);
+        logDebug($title, [$msg]);
 #### 3、JWT整合
     文件位置：
         App\Models\User
@@ -26,3 +27,24 @@
     文件位置：
         App\Exceptions\Handler
     
+#### 5、整合了Repositories 设计模式
+        生成对应文件：
+            php artisan init:model-service
+        文件位置：
+            App\Repositories\*
+            App\Facades\*
+            App\Providers\RepositoryServiceProvider
+        使用：
+            use App\Facades\***;
+            ***::getFirst()...
+        这里封装的方法可以查看:
+            App\Traits\RepositoryBaseRepositoryTrait
+            App\Repositories\CommonRepository
+#### 6、在Helpers中封装了很多方法，也可以自己添加方法
+        文件位置：
+            App\Helpers\*
+#### 7、在 App\Traits\Controller\*下封装了一些公共的Controller方法，需要使用就use
+        文件位置：
+            App\Traits\Controller\*
+        使用：
+            use App\Facades\Controller\***;
